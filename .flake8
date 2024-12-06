@@ -1,0 +1,21 @@
+[flake8]
+max-line-length = 119
+exclude = 
+    env/*, 
+    .git/*, 
+    __pycache__/*, 
+    .DS_Store, 
+    .AppleDouble, 
+    .LSOverride, 
+    .metadata_never_index, 
+    .Spotlight-V100, 
+    .TemporaryItems, 
+    .Trashes,
+    venv/*,
+    .venv/*,
+    *.log,
+    staticfiles/*,
+    node_modules/*
+ignore = E501, W503, W504
+format = html
+htmldir = flake8-report
