@@ -2,10 +2,15 @@ from rest_framework import serializers
 from .models import CustomUser
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='user-detail',
+        lookup_field='pk'
+    )
+
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'age', 'can_be_contacted', 'can_data_be_shared', 'password']
+        fields = ['id', 'url', 'username', 'email', 'age', 'can_be_contacted', 'can_data_be_shared', 'password']
         extra_kwargs = {
             'password': {'write_only': True},
         }

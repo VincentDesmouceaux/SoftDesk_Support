@@ -3,7 +3,7 @@ from rest_framework import viewsets, generics
 from rest_framework.exceptions import PermissionDenied
 from .models import CustomUser
 from .serializers import UserSerializer
-from .permissions import IsAuthorOrAdminOrReadOnly  # Assurez-vous que cette permission existe dans authentication/permissions.py
+from .permissions import IsAuthorOrAdminOrReadOnly
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -15,28 +15,19 @@ class UserViewSet(viewsets.ModelViewSet):
         user = self.request.user
         print(f"Action: {action} - User: {user}")
         if action == 'create':
-            # Création accessible sans authentification
             return [AllowAny()]
         elif action == 'list':
-            # Liste des utilisateurs : accessible aux superutilisateurs pour tout voir.
-            # Pour un utilisateur normal, filtré par les permissions et check_permissions_for_update.
-            # On demande authentification et on applique la permission pour l'écriture.
             return [IsAuthenticated(), IsAuthorOrAdminOrReadOnly()]
-        # Pour les autres actions (retrieve, update, partial_update, destroy):
-        # Authentification et permission spéciale
         return [IsAuthenticated(), IsAuthorOrAdminOrReadOnly()]
 
     def get_queryset(self):
         user = self.request.user
         print(f"Fetching queryset for user: {user.username}, Is Superuser: {user.is_superuser}")
-        # Retourner tous les utilisateurs, les permissions décideront du droit de modification
         return CustomUser.objects.all()
 
     def check_permissions_for_update(self, user, instance):
-        # L'administrateur (superuser) peut tout modifier
         if user.is_superuser:
             return
-        # Un utilisateur normal ne peut modifier que son propre profil
         is_allowed = instance.id == user.id
         print(f"Permission check for update: User: {user.username}, Target: {instance.username}, Allowed: {is_allowed}")
         if not is_allowed:

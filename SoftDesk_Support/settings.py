@@ -20,7 +20,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'authentication',
     'projects',
-    'contributors'
+    'contributors',
+    'issues',
+    'comments'
 ]
 
 MIDDLEWARE = [

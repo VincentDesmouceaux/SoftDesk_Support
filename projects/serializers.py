@@ -15,6 +15,11 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field='pk'
     )
 
+    url = serializers.HyperlinkedIdentityField(
+        view_name='project-detail',
+        lookup_field='pk'
+    )
+
     class Meta:
         model = Project
         fields = ['id', 'url', 'title', 'description', 'project_type', 'author', 'created_time', 'contributors_url']

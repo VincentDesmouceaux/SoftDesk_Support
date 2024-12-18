@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions, status
-from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
 from .models import Contributor
 from .serializers import ContributorSerializer
 from projects.models import Project
