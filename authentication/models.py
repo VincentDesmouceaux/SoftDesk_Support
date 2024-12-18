@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 
 class CustomUser(AbstractUser):
@@ -7,10 +8,23 @@ class CustomUser(AbstractUser):
     can_be_contacted = models.BooleanField(default=False)
     can_data_be_shared = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['id']  # Définit un tri par défaut par ID pour éviter les avertissements de pagination
+
     def save(self, *args, **kwargs):
-        if self.pk is None or 'password' in self.get_dirty_fields():
+        # Vérifie si l'utilisateur existe déjà
+        if self.pk is not None:
+            # Récupère l'utilisateur original pour comparer les champs
+            original = CustomUser.objects.get(pk=self.pk)
+            # Vérifie si le mot de passe a changé et s'il doit être haché
+            if original.password != self.password and not self.password.startswith("pbkdf2_sha256$"):
+                self.password = make_password(self.password)
+        else:
+            # Cas d'un nouvel utilisateur
             if self.password and not self.password.startswith("pbkdf2_sha256$"):
-                self.set_password(self.password)
+                self.password = make_password(self.password)
+
+        # Appel à la méthode save de la classe parente
         super().save(*args, **kwargs)
 
     def __str__(self):
