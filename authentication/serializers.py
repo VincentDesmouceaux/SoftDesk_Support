@@ -7,21 +7,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['id', 'username', 'email', 'age', 'can_be_contacted', 'can_data_be_shared', 'password']
         extra_kwargs = {
-            'password': {'write_only': True},  # Le mot de passe est uniquement en écriture
+            'password': {'write_only': True},
         }
 
     def validate_age(self, value):
-        """
-        Valide que l'utilisateur a au moins 15 ans.
-        """
         if value < 15:
-            raise serializers.ValidationError("L'utilisateur doit avoir au moins 15 ans pour s'inscrire.")
+            raise serializers.ValidationError("L'utilisateur doit avoir au moins 15 ans.")
         return value
 
     def create(self, validated_data):
-        """
-        Crée un utilisateur avec le mot de passe haché.
-        """
         user = CustomUser(**validated_data)
         user.set_password(validated_data['password'])
         user.save()

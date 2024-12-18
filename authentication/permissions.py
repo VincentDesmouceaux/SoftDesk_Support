@@ -1,28 +1,39 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
+from projects.models import Project
 
 
-class IsAdminUserOrReadOnly(BasePermission):
+class IsAuthorOrAdminOrReadOnly(BasePermission):
     """
-    Permission permettant uniquement aux super utilisateurs ou à un utilisateur de modifier ses propres informations.
+    Permission :
+    - Un superutilisateur (admin) a tous les droits.
+    - Un utilisateur non admin peut lire (si déjà filtré par le fait d'être contributeur)
+      mais ne peut modifier une ressource que s'il en est l'auteur.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Si l'utilisateur est superutilisateur : accès total
+        if request.user.is_superuser:
+            return True
+
+        # Méthodes de lecture autorisées
+        if request.method in SAFE_METHODS:
+            return True
+
+        # Méthodes d'écriture (POST, PUT, PATCH, DELETE) : doit être l'auteur
+        return getattr(obj, 'author', None) == request.user
+
+
+class IsProjectContributor(BasePermission):
+    """
+    Vérifie que l'utilisateur est contributeur ou auteur du projet associé à la vue.
+    On suppose que project_id est présent dans les kwargs de la vue.
     """
 
     def has_permission(self, request, view):
-        """
-        Vérifie les permissions générales pour la vue.
-        """
-        print(f"Checking general permissions: User: {request.user}, Action: {view.action}")
-        if view.action in ['list', 'create']:
-            return True  # Par défaut, ces actions sont ouvertes selon leur permission explicite
-        return request.user.is_authenticated
-
-    def has_object_permission(self, request, view, obj):
-        """
-        Limite les permissions des objets individuels.
-        """
-        print(f"Checking object permissions: User: {request.user.username}, Action: {view.action}, Target: {obj.username}")
-        # Vérifiez si l'utilisateur est super utilisateur ou s'il modifie ses propres informations.
-        if view.action in ['update', 'partial_update', 'destroy']:
-            is_allowed = obj.id == request.user.id or request.user.is_superuser
-            print(f"Permission allowed: {is_allowed}")
-            return is_allowed
+        project_id = view.kwargs.get('project_id')
+        if project_id is not None:
+            return Project.objects.filter(id=project_id, contributors=request.user).exists() or \
+                Project.objects.filter(id=project_id, author=request.user).exists()
+        # Si aucune project_id, on considère que c'est une route globale
+        # (par ex. liste de projets, gérée par d'autres permissions ou filtres)
         return True
