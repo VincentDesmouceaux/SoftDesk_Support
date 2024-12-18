@@ -20,7 +20,15 @@ class CustomUser(AbstractUser):
             if original.password != self.password and not self.password.startswith("pbkdf2_sha256$"):
                 self.password = make_password(self.password)
         else:
-            # Cas d'un nouvel utilisateur
+            # Cas d'un nouvel utilisateur : rechercher le plus petit ID disponible
+            existing_ids = set(CustomUser.objects.values_list('id', flat=True))
+            if existing_ids:
+                # Trouver le plus petit ID disponible
+                new_id = min(set(range(1, max(existing_ids) + 2)) - existing_ids)
+            else:
+                new_id = 1  # Premier utilisateur
+            self.id = new_id  # Assigner l'ID manuellement
+
             if self.password and not self.password.startswith("pbkdf2_sha256$"):
                 self.password = make_password(self.password)
 
