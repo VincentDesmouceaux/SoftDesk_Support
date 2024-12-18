@@ -30,6 +30,10 @@ class IsProjectContributor(BasePermission):
     """
 
     def has_permission(self, request, view):
+        # Autoriser les superutilisateurs
+        if request.user.is_superuser:
+            return True
+
         project_id = view.kwargs.get('project_id')
         if project_id is not None:
             return Project.objects.filter(id=project_id, contributors=request.user).exists() or \
