@@ -16,7 +16,5 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Project.objects.filter(Q(author=user) | Q(contributors=user)).distinct()
 
     def perform_create(self, serializer):
-        # L'utilisateur qui "souscrit" devient l'auteur du projet
         project = serializer.save(author=self.request.user)
-        # Ajout automatique de l'auteur comme contributeur du projet
         project.contributors.add(self.request.user)
