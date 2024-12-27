@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import Contributor
 
-# Register your models here.
+
+class ContributorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'project', 'role')
+    list_filter = ('project', 'role')
+    search_fields = ('user__username', 'project__title')
+
+
+admin.site.register(Contributor, ContributorAdmin)

@@ -15,6 +15,7 @@ sqlparse = "==0.5.2"
 python-decouple = "*"
 djangorestframework-simplejwt = "*"
 django-extensions = "*"
+drf-yasg = "*"
 
 [dev-packages]
 

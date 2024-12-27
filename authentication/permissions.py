@@ -5,8 +5,8 @@ from projects.models import Project
 class IsAuthorOrAdminOrReadOnly(BasePermission):
     """
     Permission :
-    - Un superutilisateur (admin) a tous les droits.
-    - Un utilisateur non admin peut lire (si déjà filtré par le fait d'être contributeur)
+    - Un superutilisateur (admin) a tous les droits (lecture & écriture).
+    - Un utilisateur non admin peut lire (si déjà filtré par le fait d'être contributeur, ou autre)
       mais ne peut modifier une ressource que s'il en est l'auteur.
     """
 
@@ -35,9 +35,9 @@ class IsProjectContributor(BasePermission):
             return True
 
         project_id = view.kwargs.get('project_id')
-        if project_id is not None:
+        if project_id:
             return Project.objects.filter(id=project_id, contributors=request.user).exists() or \
                 Project.objects.filter(id=project_id, author=request.user).exists()
         # Si aucune project_id, on considère que c'est une route globale
-        # (par ex. liste de projets, gérée par d'autres permissions ou filtres)
+        # (par ex. liste de projets)
         return True
