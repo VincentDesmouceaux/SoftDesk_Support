@@ -63,3 +63,8 @@ class IsProjectContributor(BasePermission):
         # Si aucune project_id, on considère que c'est une route globale
         # (par ex. liste de projets)
         return True
+
+
+class IsActiveUser(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_active)
