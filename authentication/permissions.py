@@ -4,44 +4,31 @@ from projects.models import Project
 
 class IsAuthorOrAdminOrReadOnly(BasePermission):
     """
-    Permission :
-    - Un superutilisateur (admin) a tous les droits (lecture & écriture).
-    - Un utilisateur non admin peut lire (si déjà filtré par le fait d'être contributeur, ou autre)
-      mais ne peut modifier une ressource que s'il en est l'auteur.
-    """
-
-    """
-    - Lecture autorisée à tout utilisateur qui a accès au projet (déjà vérifié par IsProjectContributor).
-    - Écriture autorisée si l'utilisateur est superuser, ou l'auteur de l'issue, ou l'assignee de l'issue.
+    Permet (GET) en lecture à tous les utilisateurs qui y ont accès (déjà géré par d’autres checks)
+    Permet en écriture seulement à l’auteur ou au superuser.
     """
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_superuser:
             return True
-
-        # Méthodes de lecture autorisées
         if request.method in SAFE_METHODS:
             return True
-
-        # Méthodes d'écriture : auteur OU assignee
-        return (obj.author == request.user) or (obj.assignee == request.user)
+        # Écriture : doit être author
+        return (obj.author == request.user)
 
 
 class IsIssueAuthorOrAssigneeOrAdminOrReadOnly(BasePermission):
     """
-    - Lecture autorisée à tout utilisateur qui a accès au projet (déjà vérifié par IsProjectContributor).
-    - Écriture autorisée si l'utilisateur est superuser, ou l'auteur de l'issue, ou l'assignee de l'issue.
+    Permet en lecture à tous les contributeurs (déjà géré par IsProjectContributor).
+    Permet en écriture si l'utilisateur est superuser, ou l’auteur de l’Issue, ou l’assignee de l’Issue.
     """
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_superuser:
             return True
-
-        # Méthodes de lecture autorisées
         if request.method in SAFE_METHODS:
             return True
-
-        # Méthodes d'écriture : auteur OU assignee
+        # Pour l’écriture : author ou assignee
         return (obj.author == request.user) or (obj.assignee == request.user)
 
 

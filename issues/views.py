@@ -3,14 +3,14 @@ from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from .models import Issue
 from .serializers import IssueSerializer
-from authentication.permissions import IsAuthorOrAdminOrReadOnly, IsProjectContributor
+from authentication.permissions import IsIssueAuthorOrAssigneeOrAdminOrReadOnly, IsProjectContributor
 from projects.models import Project
 from contributors.models import Contributor
 
 
 class IssueViewSet(viewsets.ModelViewSet):
     serializer_class = IssueSerializer
-    permission_classes = [permissions.IsAuthenticated, IsProjectContributor, IsAuthorOrAdminOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, IsProjectContributor, IsIssueAuthorOrAssigneeOrAdminOrReadOnly]
 
     def get_queryset(self):
         project_id = self.kwargs.get('project_id')
