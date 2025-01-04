@@ -26,9 +26,27 @@ class ContributorViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         project = serializer.validated_data.get('project', None)
-        if project and (project.author != self.request.user and not self.request.user.is_superuser):
-            raise PermissionDenied("Vous n'êtes pas autorisé à ajouter des contributeurs à ce projet.")
+        # On vérifie juste que le user ne s'ajoute pas à un projet qui n'existe pas
+        # ou qu'il n'a pas déjà
+        if Contributor.objects.filter(
+            user=serializer.validated_data['user'],
+            project=project
+        ).exists():
+            raise PermissionDenied("Cet utilisateur est déjà contributeur de ce projet.")
 
-        if Contributor.objects.filter(user=serializer.validated_data['user'], project=project).exists():
-            raise PermissionDenied("Ce contributeur est déjà lié à ce projet.")
         serializer.save()
+
+    def destroy(self, request, *args, **kwargs):
+        contributor_instance = self.get_object()
+        # Se retirer soi-même => OK
+        # L’auteur du projet => OK s’il veut supprimer quelqu’un
+        # OU Superuser => OK
+        # Sinon => 403
+        if (
+            request.user.is_superuser
+            or request.user == contributor_instance.user
+            or request.user == contributor_instance.project.author
+        ):
+            return super().destroy(request, *args, **kwargs)
+        else:
+            raise PermissionDenied("Vous ne pouvez pas supprimer ce contributeur.")

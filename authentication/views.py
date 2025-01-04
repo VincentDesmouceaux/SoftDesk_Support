@@ -52,6 +52,13 @@ class UserViewSet(viewsets.ModelViewSet):
         self.check_permissions_for_update(request.user, instance)
         return super().update(request, *args, **kwargs)
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # Autoriser la suppression seulement si c'est un superuser OU le user lui-même
+        if not (request.user.is_superuser or request.user == instance):
+            raise PermissionDenied("Vous ne pouvez pas supprimer un autre utilisateur.")
+        return super().destroy(request, *args, **kwargs)
+
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
     """

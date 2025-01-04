@@ -10,8 +10,12 @@ class IsAuthorOrAdminOrReadOnly(BasePermission):
       mais ne peut modifier une ressource que s'il en est l'auteur.
     """
 
+    """
+    - Lecture autorisée à tout utilisateur qui a accès au projet (déjà vérifié par IsProjectContributor).
+    - Écriture autorisée si l'utilisateur est superuser, ou l'auteur de l'issue, ou l'assignee de l'issue.
+    """
+
     def has_object_permission(self, request, view, obj):
-        # Si l'utilisateur est superutilisateur : accès total
         if request.user.is_superuser:
             return True
 
@@ -19,8 +23,26 @@ class IsAuthorOrAdminOrReadOnly(BasePermission):
         if request.method in SAFE_METHODS:
             return True
 
-        # Méthodes d'écriture (POST, PUT, PATCH, DELETE) : doit être l'auteur
-        return getattr(obj, 'author', None) == request.user
+        # Méthodes d'écriture : auteur OU assignee
+        return (obj.author == request.user) or (obj.assignee == request.user)
+
+
+class IsIssueAuthorOrAssigneeOrAdminOrReadOnly(BasePermission):
+    """
+    - Lecture autorisée à tout utilisateur qui a accès au projet (déjà vérifié par IsProjectContributor).
+    - Écriture autorisée si l'utilisateur est superuser, ou l'auteur de l'issue, ou l'assignee de l'issue.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_superuser:
+            return True
+
+        # Méthodes de lecture autorisées
+        if request.method in SAFE_METHODS:
+            return True
+
+        # Méthodes d'écriture : auteur OU assignee
+        return (obj.author == request.user) or (obj.assignee == request.user)
 
 
 class IsProjectContributor(BasePermission):
