@@ -50,3 +50,20 @@ class ContributorViewSet(viewsets.ModelViewSet):
             return super().destroy(request, *args, **kwargs)
         else:
             raise PermissionDenied("Vous ne pouvez pas supprimer ce contributeur.")
+
+    def get_permissions(self):
+        """
+        Choix dynamique des permissions selon l'action.
+        """
+        if self.action == 'create':
+            # Pour créer un nouveau contributor, on n'impose PAS IsProjectContributor.
+            # On laisse juste IsAuthenticated pour être sûr que la personne est connectée.
+            permission_classes = [permissions.IsAuthenticated]
+        else:
+            # Pour lire, patch, delete, etc. on conserve la logique habituelle
+            permission_classes = [
+                permissions.IsAuthenticated,
+                IsProjectContributor,
+                IsAuthorOrAdminOrReadOnly,
+            ]
+        return [permission() for permission in permission_classes]
