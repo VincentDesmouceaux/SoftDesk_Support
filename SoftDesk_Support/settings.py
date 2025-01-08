@@ -1,14 +1,25 @@
+"""
+Fichier de configuration Django pour le projet SoftDesk_Support.
+Il contient tous les réglages globaux : base de données, applications installées,
+middleware, configuration REST, etc.
+"""
+
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
 
+# Chemin de base du projet
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Clé secrète Django (utiliser des variables d'environnement en production)
 SECRET_KEY = config('SECRET_KEY')
+
+# Mode debug (à désactiver en production)
 DEBUG = config('DEBUG', cast=bool, default=False)
 
 ALLOWED_HOSTS = []
 
+# Applications installées
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,6 +38,7 @@ INSTALLED_APPS = [
     'drf_yasg'
 ]
 
+# Middleware gérant notamment la sécurité, les sessions, l'authentification, etc.
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -37,8 +49,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Fichier contenant la configuration des routes principales
 ROOT_URLCONF = 'SoftDesk_Support.urls'
 
+# Configuration des templates Django
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -55,8 +69,10 @@ TEMPLATES = [
     },
 ]
 
+# Point d'entrée WSGI
 WSGI_APPLICATION = 'SoftDesk_Support.wsgi.application'
 
+# Configuration de la base de données (SQLite par défaut)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -64,6 +80,7 @@ DATABASES = {
     }
 }
 
+# Validation des mots de passe
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
@@ -71,20 +88,22 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
+# Paramètres linguistiques et de localisation
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Fichiers statiques
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuration de Django REST Framework
 REST_FRAMEWORK = {
-
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',  # Permet l'interface dans le navigateur
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -98,8 +117,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 6,
 }
 
+# Modèle utilisateur personnalisé
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
+# Configuration Simple JWT
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),

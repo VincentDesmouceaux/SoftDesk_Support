@@ -1,0 +1,1364 @@
+{
+	"info": {
+		"_postman_id": "a3f82ab9-351a-4800-b444-89348fc5d99a",
+		"name": "API_SoftDesk_support",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25899028"
+	},
+	"item": [
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "Créer un nouvel utilisateur (inscription)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"sophie\",\n  \"email\": \"nouvel_utilisateur@example.com\",\n  \"password\": \"password123\",\n  \"age\": 22\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir un Token JWT (login)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"name": "cache-control",
+								"sortOrder": 2,
+								"infoTitle": "We recommend using this header",
+								"info": "Postman added \"Cache-Control: no-cache\" as a precautionary measure to prevent the server from returning stale response when one makes repeated requests.\n\nYou can remove this header in the app settings or enter a new one with a different value.",
+								"allowedToToggle": false,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to settings",
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"system": true,
+								"type": "text",
+								"id": 0
+							},
+							{
+								"name": "postman-token",
+								"sortOrder": 3,
+								"infoTitle": "We recommend using this header",
+								"info": "The Postman-Token header appends a random UUID to every outgoing request. Postman adds this header for API developers to better debug requests sent and to ensure separate requests appear distinct to the receiving server.\n\nYou can remove this header in the app settings.",
+								"allowedToToggle": false,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to settings",
+								"key": "Postman-Token",
+								"value": "<calculated when request is sent>",
+								"system": true,
+								"type": "text",
+								"id": 1
+							},
+							{
+								"name": "content-type",
+								"sortOrder": 4,
+								"infoTitle": "This header was automatically added",
+								"info": "The Content-Type header is added to help the server identify the media type of the request body that is present in this request.\n\nUse the request body tab to control the value or to remove this header.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to body",
+								"key": "Content-Type",
+								"value": "application/json",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "content-length",
+								"sortOrder": 5,
+								"infoTitle": "This header was automatically added",
+								"info": "The Content-Length header was added to indicate to the server the size of the request body that is added to this request. Server uses this value to parse the request body accurately.\n\nYou can remove the header or enter a new one with a different value.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to body",
+								"key": "Content-Length",
+								"value": "<calculated when request is sent>",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "host",
+								"sortOrder": 6,
+								"infoTitle": "We recommend using this header",
+								"info": "The Host header is added to identify the domain name for which a request is being sent to the server. This header is implicitly sent by every HTTP client.\n\nYou can remove the header or enter a new one with a different value. It is most likely that without this header, your request will return an HTTP 400 error.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Host",
+								"value": "<calculated when request is sent>",
+								"system": true,
+								"type": "text",
+								"id": 2
+							},
+							{
+								"name": "user-agent",
+								"sortOrder": 7,
+								"infoTitle": "We recommend using this header",
+								"info": "The User-Agent header is added to help the server identify Postman as the HTTP requesting application or client.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.39.1",
+								"system": true,
+								"type": "text",
+								"id": 3
+							},
+							{
+								"name": "accept",
+								"sortOrder": 8,
+								"infoTitle": "We recommend using this header",
+								"info": "The \"Accept: */*\" header is added to tell the server that Postman can understand and process all forms of response content types.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Accept",
+								"value": "*/*",
+								"system": true,
+								"type": "text",
+								"id": 4
+							},
+							{
+								"name": "accept-encoding",
+								"sortOrder": 9,
+								"infoTitle": "We recommend using this header",
+								"info": "The Accept-Encoding header is added to indicate to the server that Postman HTTP client supports a defined list of content-encoding or compression algorithms as response.\n\nYou can remove the header or enter a new one with a different value. Doing that may not accurately render the response within the app.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"system": true,
+								"type": "text",
+								"id": 5
+							},
+							{
+								"name": "connection",
+								"sortOrder": 10,
+								"infoTitle": "We recommend using this header",
+								"info": "Postman added the Connection header to indicate the server to keep the underlying network connection open once the current response is received. This allows Postman to reuse the same connection for faster response times in subsequent requests to the same server.\n\nYou can remove this header or enter a new one with a different value, such as `Connection: Close` to control this behaviour.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Connection",
+								"value": "keep-alive",
+								"system": true,
+								"type": "text",
+								"id": 6
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"hello\", \n  \"password\": \"password123\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rafraîchir le Token JWT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczNjQzODY1NCwiaWF0IjoxNzM2MzUyMjU0LCJqdGkiOiJiMDVlZTJlOWQzMjU0NjI3OWYzYTNlNWQ5OGU5MDFjNiIsInVzZXJfaWQiOjh9.WCL-hWp9jn4bFIovBlIwd62DsRBbpJU06l6SCFWBtD8\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher son profil utilisateur",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTE0NTIwLCJpYXQiOjE3MzU5MTM2MjAsImp0aSI6IjJjNmMyODNhODdjMTRiM2ZhMjViNWJhNDM1NGZkYTM4IiwidXNlcl9pZCI6OH0.4EgVye4ehLPmMPEtcHQzoTWTq3xY26b8uuerF94vxhc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/profile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTE0NTIwLCJpYXQiOjE3MzU5MTM2MjAsImp0aSI6IjJjNmMyODNhODdjMTRiM2ZhMjViNWJhNDM1NGZkYTM4IiwidXNlcl9pZCI6OH0.4EgVye4ehLPmMPEtcHQzoTWTq3xY26b8uuerF94vxhc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"can_data_be_shared\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/profile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lister tous les utilisateurs (réservé aux utilisateurs authentifiés)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzUyNjc1LCJpYXQiOjE3MzYzNTE3NzUsImp0aSI6IjBlZTg3MzFhYTExZTQ3MGJhM2JhNzcxNTlkZDQ5NTIxIiwidXNlcl9pZCI6M30.7XDzEGtfOLVkE-mFo6_rBUABvBbs1SgoZdkfivwaaMw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDAwMTkzLCJpYXQiOjE3MzU5OTkyOTMsImp0aSI6Ijc5MWIyZjdkZDIyYjQ1NDdiYjY2NzhmMDlhMjk0MjAxIiwidXNlcl9pZCI6N30.5-gJMmp7woq8rd575iwlPRO2P066zrrFldomdJ4UlSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/3/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "Lister les projets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzUyNjc1LCJpYXQiOjE3MzYzNTE3NzUsImp0aSI6IjBlZTg3MzFhYTExZTQ3MGJhM2JhNzcxNTlkZDQ5NTIxIiwidXNlcl9pZCI6M30.7XDzEGtfOLVkE-mFo6_rBUABvBbs1SgoZdkfivwaaMw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "creer un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTE3Mjc2LCJpYXQiOjE3MzU5MTM2MjAsImp0aSI6IjQzNTg3NDA3MDBmZDRkMWM5MWVjZjAzNzM5OWUwNDcwIiwidXNlcl9pZCI6OH0.26B9UGeLLXb9HrWl4nNgQznMc9BRcwOuQasCUb9G3nc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Nouveau Projet\",\n  \"description\": \"Description du projet\",\n  \"project_type\": \"Back-End\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer les détails d’un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDA0NzQ0LCJpYXQiOjE3MzYwMDM4NDQsImp0aSI6IjAzNTU1NDcxYzJlNTRmZTdhMmQxZjM3NTA1Zjk1ZTU1IiwidXNlcl9pZCI6OX0.U4SL7dfRkZlClDByKStmEGukoHJFyWN3Obv_vdD-JGU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mettre à jour un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzUzMjI4LCJpYXQiOjE3MzYzNTIzMjgsImp0aSI6IjE2ZjU0MjM2MmJjYzRkN2NhNjc0NGM5OTM3MTA1ZDMwIiwidXNlcl9pZCI6N30.FfMfHqULpaTKRSbdtYyaLpth07E-DCYFa2oPF9BpKOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Nouvelle description\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTE4MDExLCJpYXQiOjE3MzU5MTcxMTEsImp0aSI6Ijc3ODVlMDkyMjczMTQzMWE4ZDRmMTAzZmM2ODE5MDNmIiwidXNlcl9pZCI6M30.xkcJBd2V6-toZhvl2xBH7vPl3nH2aPWaEOC67Npfv_Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contributors",
+			"item": [
+				{
+					"name": "Lister les contributeurs d’un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDAyOTgwLCJpYXQiOjE3MzYwMDIwODAsImp0aSI6ImI2OGRhMGE0NWJkZjQyZjg5MzA1NTI4YzZiNzg4ZTY3IiwidXNlcl9pZCI6Mn0.zj976_V_tixyaGSPzIMTT1j94o4GympWN_icS5svprI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/contributors/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"contributors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un contributeur à un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDA0NzQ0LCJpYXQiOjE3MzYwMDM4NDQsImp0aSI6IjAzNTU1NDcxYzJlNTRmZTdhMmQxZjM3NTA1Zjk1ZTU1IiwidXNlcl9pZCI6OX0.U4SL7dfRkZlClDByKStmEGukoHJFyWN3Obv_vdD-JGU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": 9,\n  \"project\": \"3a250c5a-bda2-431d-af2c-2f27ab9bae26\",\n  \"role\": \"Write\" \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/contributors/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"contributors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer les détails d’un contributeur",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTIwOTM3LCJpYXQiOjE3MzU5MjAwMzcsImp0aSI6IjA4NzY5NDhjMTEyNTRmNGNhZDM5NmZiNDM5OWI2YTlmIiwidXNlcl9pZCI6N30.XloQjqw8Lj0-tcnNC1Okj1EM3DKBY6BOBAN4d-Z3emI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/contributors/17/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"contributors",
+								"17",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier le rôle d’un contributeur",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTIyMzUzLCJpYXQiOjE3MzU5MjE0NTMsImp0aSI6ImE5ZTcwMzg5MTUzMDRhYmM4MTg4OTdmYmQ5NzBkZTE2IiwidXNlcl9pZCI6N30.UtIVY2oBh6-xXYlVEibqncSn91htdagHXIM8c-hA4_Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"role\": \"read\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/contributors/17/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"contributors",
+								"17",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un contributeur d’un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTIzODE3LCJpYXQiOjE3MzU5MTM2MjAsImp0aSI6IjUxZjI0MDZmYjFkYjQ4MTc5NWZiY2ExNmEyMjQ4Njk5IiwidXNlcl9pZCI6OH0.pDRIZL2hoaqzForWqjcW47D1ZE8SL9mFqvN7SRVByW8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/contributors/17/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"contributors",
+								"17",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "issues",
+			"item": [
+				{
+					"name": "Lister les issues d’un projet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzU0NzQ3LCJpYXQiOjE3MzYzNTIyNTQsImp0aSI6IjkyNjNhMTUxNTA4NzQxMjBhN2Q3NjQ5Y2ZiZWRiZjVhIiwidXNlcl9pZCI6OH0.7UQz4mErUsvGA45YA2CRQ8V9sK32Dng5VQCLsKcLv8k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Créer une issue",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDA1ODY3LCJpYXQiOjE3MzYwMDQ5NjcsImp0aSI6Ijk4MTRjMGE3N2JmMTQwMzFiZDI5ODNhMWIxNTQ5NDA4IiwidXNlcl9pZCI6OX0.3YGvQtrBBy68s-LjYisGxikdlfjRfZWouGa-33qpw5Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Nouveau petit bug\",\n  \"description\": \"mettre a jour le CSS\",\n  \"tag\": \"BUG\",\n  \"priority\": \"HIGH\",\n  \"status\": \"To Do\",\n  \"assignee\": 3   // Optionnel ou PK d'un utilisateur contributeur \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer les détails d’une issue",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTk0OTY4LCJpYXQiOjE3MzU5OTQwNjgsImp0aSI6ImFlMTdmODMyZjg2ZjRlMjRiODZjMjM3YThiNGIyNWU4IiwidXNlcl9pZCI6M30.UUyqyE6yRGPb9CMJU7tn7LrZv28fKfpXRG6Fh4dCpFY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mettre à jour une issue",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzU1MDMzLCJpYXQiOjE3MzYzNTQxMzMsImp0aSI6ImU1NDU3MWJiYzE2MjQ0YTk4ZGRkYWVhM2Q4MjI3ZDI2IiwidXNlcl9pZCI6M30.AXyBUWfWaj95Wn93U5Rz6dyMOeuoNvXtCkEfSXFXHhA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"To Do\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/60dea9a1-abac-412f-a97d-f793228cdfb1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"60dea9a1-abac-412f-a97d-f793228cdfb1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une issue",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDAxNDg3LCJpYXQiOjE3MzYwMDA1ODcsImp0aSI6IjEzNjY1ZDVkMTVlMjQ2YWE4ZjNmMTJkNzI5YTE1MmNmIiwidXNlcl9pZCI6N30.jJq77WSbOPsfSdMQayDBvSZNhVa2x9LRikD7Lf779Ho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "Lister les commentaires d’une issue",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzU4MjQxLCJpYXQiOjE3MzYzNTIyNTQsImp0aSI6ImJjNWYzZjQ0YTRjYjQ2NGQ5MzEwZDJhMzQ0NTYzNmI2IiwidXNlcl9pZCI6OH0.6PMkSUVtip7w7otu06zrf6akTqxTG3BmuLKg9OFNQOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/comments/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								"comments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Créer un commentaire",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDA1ODY3LCJpYXQiOjE3MzYwMDQ5NjcsImp0aSI6Ijk4MTRjMGE3N2JmMTQwMzFiZDI5ODNhMWIxNTQ5NDA4IiwidXNlcl9pZCI6OX0.3YGvQtrBBy68s-LjYisGxikdlfjRfZWouGa-33qpw5Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Le terminal me renvoit une erreur 500\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/comments/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								"comments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer les détails d’un commentaire",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDAyOTgwLCJpYXQiOjE3MzYwMDIwODAsImp0aSI6ImI2OGRhMGE0NWJkZjQyZjg5MzA1NTI4YzZiNzg4ZTY3IiwidXNlcl9pZCI6Mn0.zj976_V_tixyaGSPzIMTT1j94o4GympWN_icS5svprI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/comments/2377c660-c49a-45f0-8a16-5f5034dbd6eb/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								"comments",
+								"2377c660-c49a-45f0-8a16-5f5034dbd6eb",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mettre à jour un commentaire",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDA1ODY3LCJpYXQiOjE3MzYwMDQ5NjcsImp0aSI6Ijk4MTRjMGE3N2JmMTQwMzFiZDI5ODNhMWIxNTQ5NDA4IiwidXNlcl9pZCI6OX0.3YGvQtrBBy68s-LjYisGxikdlfjRfZWouGa-33qpw5Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"test maj du commentaire\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/comments/6a2668d6-47cc-4850-be41-8a969220a687/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								"comments",
+								"6a2668d6-47cc-4850-be41-8a969220a687",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un commentaire",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MDA1ODY3LCJpYXQiOjE3MzYwMDQ5NjcsImp0aSI6Ijk4MTRjMGE3N2JmMTQwMzFiZDI5ODNhMWIxNTQ5NDA4IiwidXNlcl9pZCI6OX0.3YGvQtrBBy68s-LjYisGxikdlfjRfZWouGa-33qpw5Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/3a250c5a-bda2-431d-af2c-2f27ab9bae26/issues/63295ef6-7450-40a0-a483-dd6b12d68866/comments/6a2668d6-47cc-4850-be41-8a969220a687/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"3a250c5a-bda2-431d-af2c-2f27ab9bae26",
+								"issues",
+								"63295ef6-7450-40a0-a483-dd6b12d68866",
+								"comments",
+								"6a2668d6-47cc-4850-be41-8a969220a687",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "obtention token TOTO",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTExNjgxLCJpYXQiOjE3MzQ1MTA3ODEsImp0aSI6Ijc2NjNhMDA0ODA2MzQ1Mjg4ZGYxMjNlZTkyZTk4NWFmIiwidXNlcl9pZCI6MX0.MNVTOd-XJd_FtXYo-VSgptYGGCVXCy9gIhJw2zmLYxE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"toto\",\n    \"password\": \"admin\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh token toto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh\": \"<REFRESH_TOKEN>\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/token/refresh/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contribuer a un produit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTIxOTEzLCJpYXQiOjE3MzQ1MjEwMTMsImp0aSI6IjkzZDVkNzQ2OGE0YzRiYTE5MDQ5NTU4ZjA3MDMyODUxIiwidXNlcl9pZCI6M30.UAlfJhr4EN2tQ6E_alYEw5qXG_S0ZMFkO8C8X3Zilo8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user\": 2,\n  \"project\": \"d3a99ebf-d485-403c-b9fc-a85c0bb85bbe\",\n  \"role\": \"Write\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/projects/d3a99ebf-d485-403c-b9fc-a85c0bb85bbe/contributors/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"projects",
+						"d3a99ebf-d485-403c-b9fc-a85c0bb85bbe",
+						"contributors",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tester l'accès à un endpoint sécurisé",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1OTE1NTc1LCJpYXQiOjE3MzU5MTM2MjAsImp0aSI6IjUwYzAyYWQ0MTk2MzQ1MWNhYjExNmExOGQ2YTExODcyIiwidXNlcl9pZCI6OH0.mPXMB4oVDwg4Mi2kOghMWhnufjS3P70vZqW813GrOnc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/secure-endpoint/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"secure-endpoint",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,9 +1,19 @@
+"""
+Ce module définit le modèle Project, qui représente un projet dans l'application.
+Un projet possède un titre, une description, un type de projet (back-end, front-end, etc.),
+un auteur et une date de création. Il peut avoir plusieurs contributeurs.
+"""
+
 import uuid
 from django.db import models
 from django.conf import settings
 
 
 class Project(models.Model):
+    """
+    Modèle représentant un projet dans SoftDesk.
+    Un projet est identifié par un UUID, possède un titre et une description, ainsi qu'un auteur.
+    """
     BACKEND = 'Back-End'
     FRONTEND = 'Front-End'
     IOS = 'iOS'
@@ -37,4 +47,7 @@ class Project(models.Model):
         ordering = ['-created_time']
 
     def __str__(self):
+        """
+        Renvoie la représentation en chaîne de caractères du projet, ici son titre.
+        """
         return self.title

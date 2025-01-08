@@ -1,19 +1,30 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+"""
+Fichier principal permettant d'exécuter les tâches administratives de Django via la ligne de commande.
+Ce script sert notamment à lancer le serveur de développement, migrer la base de données,
+créer des utilisateurs, etc.
+"""
+
 import os
 import sys
 
 
 def main():
-    """Run administrative tasks."""
+    """
+    Point d'entrée principal pour lancer les tâches administratives Django.
+    Il définit la variable d'environnement DJANGO_SETTINGS_MODULE puis invoque
+    la commande `execute_from_command_line` de Django.
+
+    Raises:
+        ImportError: Si Django n'est pas installé ou introuvable.
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SoftDesk_Support.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
+            "Impossible d'importer Django. Assurez-vous qu'il est installé et accessible "
+            "sur votre variable d'environnement PYTHONPATH. Avez-vous activé un environnement virtuel ?"
         ) from exc
     execute_from_command_line(sys.argv)
 

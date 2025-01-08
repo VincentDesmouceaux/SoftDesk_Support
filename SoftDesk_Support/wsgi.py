@@ -1,5 +1,7 @@
 """
-WSGI config for SoftDesk_Support project.
+Fichier WSGI pour le projet SoftDesk_Support.
+Ce fichier expose une application WSGI pour que les serveurs web compatibles WSGI
+puissent servir le projet Django.
 """
 
 import os

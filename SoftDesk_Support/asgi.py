@@ -1,5 +1,6 @@
 """
-ASGI config for SoftDesk_Support project.
+Fichier ASGI pour le projet SoftDesk_Support.
+Ce fichier expose une application ASGI permettant aux serveurs compatibles ASGI de servir le projet.
 """
 
 import os

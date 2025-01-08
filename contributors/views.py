@@ -1,3 +1,8 @@
+"""
+Ce module contient le ViewSet pour gérer les contributeurs (Contributor) d'un projet,
+ainsi que les règles de permissions liées à la création, la suppression, etc.
+"""
+
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
@@ -7,16 +12,33 @@ from authentication.permissions import IsAuthorOrAdminOrReadOnly, IsProjectContr
 
 
 class ContributorViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet gérant les opérations CRUD (list, retrieve, create, partial_update, destroy)
+    pour les contributeurs d'un projet.
+
+    Permissions:
+        - L'utilisateur doit être authentifié et contributeur (IsProjectContributor)
+        - Seul l'auteur du projet, un superuser ou le contributeur lui-même peut supprimer.
+        - Pour créer un nouveau contributor, seule l'authentification est requise.
+    """
     serializer_class = ContributorSerializer
     permission_classes = [permissions.IsAuthenticated, IsProjectContributor, IsAuthorOrAdminOrReadOnly]
 
     def get_queryset(self):
+        """
+        Renvoie la liste des contributeurs d'un projet donné par project_id dans l'URL.
+        Si aucun project_id n'est fourni, renvoie un queryset vide.
+        """
         project_id = self.kwargs.get('project_id')
         if project_id:
             return Contributor.objects.filter(project_id=project_id)
         return Contributor.objects.none()
 
     def create(self, request, *args, **kwargs):
+        """
+        Crée un nouveau contributor.
+        Si le sérialiseur n'est pas valide, renvoie une 400 avec les erreurs.
+        """
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
             print("\n[DEBUG] ContributorViewSet.create() -> serializer errors:", serializer.errors)
@@ -24,9 +46,13 @@ class ContributorViewSet(viewsets.ModelViewSet):
         return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
+        """
+        Vérifie qu'un contributeur identique n'existe pas déjà avant de créer un nouveau Contributor.
+
+        Raises:
+            PermissionDenied: si un contributeur identique (même user et même projet) existe déjà.
+        """
         project = serializer.validated_data.get('project', None)
-        # On vérifie juste que le user ne s'ajoute pas à un projet qui n'existe pas
-        # ou qu'il n'a pas déjà
         if Contributor.objects.filter(
             user=serializer.validated_data['user'],
             project=project
@@ -36,11 +62,12 @@ class ContributorViewSet(viewsets.ModelViewSet):
         serializer.save()
 
     def destroy(self, request, *args, **kwargs):
+        """
+        Supprime un contributor.
+        Seul le superuser, l'auteur du projet ou l'utilisateur lui-même peut effectuer cette suppression.
+        Sinon, renvoie une 403.
+        """
         contributor_instance = self.get_object()
-        # Se retirer soi-même => OK
-        # L’auteur du projet => OK s’il veut supprimer quelqu’un
-        # OU Superuser => OK
-        # Sinon => 403
         if (
             request.user.is_superuser
             or request.user == contributor_instance.user
@@ -52,14 +79,13 @@ class ContributorViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         """
-        Choix dynamique des permissions selon l'action.
+        Définit dynamiquement les permissions selon l'action en cours.
+        - create: Seulement IsAuthenticated
+        - autre: IsAuthenticated + IsProjectContributor + IsAuthorOrAdminOrReadOnly
         """
         if self.action == 'create':
-            # Pour créer un nouveau contributor, on n'impose PAS IsProjectContributor.
-            # On laisse juste IsAuthenticated pour être sûr que la personne est connectée.
             permission_classes = [permissions.IsAuthenticated]
         else:
-            # Pour lire, patch, delete, etc. on conserve la logique habituelle
             permission_classes = [
                 permissions.IsAuthenticated,
                 IsProjectContributor,
