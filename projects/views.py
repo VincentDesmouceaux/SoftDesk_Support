@@ -1,5 +1,4 @@
 from rest_framework import viewsets, permissions
-from django.db.models import Q
 from .models import Project
 from .serializers import ProjectSerializer
 from authentication.permissions import IsAuthorOrAdminOrReadOnly

@@ -3,7 +3,6 @@ from rest_framework import status
 from django.urls import reverse
 from authentication.models import CustomUser
 from projects.models import Project
-from contributors.models import Contributor
 from issues.models import Issue
 from comments.models import Comment
 

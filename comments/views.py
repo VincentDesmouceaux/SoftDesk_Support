@@ -1,10 +1,8 @@
 from rest_framework import viewsets, permissions
-from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from .models import Comment
 from .serializers import CommentSerializer
 from authentication.permissions import IsAuthorOrAdminOrReadOnly, IsProjectContributor
-from projects.models import Project
 from issues.models import Issue
 
 

@@ -16,6 +16,7 @@ python-decouple = "*"
 djangorestframework-simplejwt = "*"
 django-extensions = "*"
 drf-yasg = "*"
+flake8-html = "*"
 
 [dev-packages]
 
