@@ -33,12 +33,25 @@ pipenv shell
 
 ### 3) Configurer vos variables d’environnement
 
-Créez (ou éditez) un fichier `.env` à la racine du projet pour y placer vos clés secrètes. Par exemple :
+Créez (ou éditez) un fichier `**.env**` à la racine du projet pour y placer vos clés secrètes. Par exemple :
 
+makefile
+
+Copier le code
 SECRET\_KEY="votre\_cle\_secrete\_django"
 DEBUG=True
 
-_(Vous pouvez définir_ `_DEBUG=False_` _en production.)_
+> **Comment générer une clé secrète Django ?**
+
+> Vous pouvez lancer la commande suivante dans un terminal :
+
+
+Copier le code
+python -c 'import secrets; print(secrets.token\_urlsafe(50))'
+
+> Copiez la chaîne générée et utilisez-la comme valeur de `SECRET_KEY`.
+
+# _(Vous pouvez définir_ `_DEBUG=False_` _en production.)_
 
 ### 4) Effectuer les migrations
 
